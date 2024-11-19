@@ -9,7 +9,7 @@ dotenv.config();
 
 export const UserRegister = async (req, res, next) => {
   try {
-    const { email, password, name, img } = req.body;
+    const { email, password, name} = req.body;
 
     // Check if the email is in use
     const existingUser = await User.findOne({ email }).exec();
@@ -23,8 +23,7 @@ export const UserRegister = async (req, res, next) => {
     const user = new User({
       name,
       email,
-      password: hashedPassword,
-      img,
+      password: hashedPassword
     });
     const createdUser = await user.save();
     const token = jwt.sign({ id: createdUser._id }, process.env.JWT, {
